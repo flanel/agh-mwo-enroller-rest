@@ -18,5 +18,30 @@ public class ParticipantService {
 	public Collection<Participant> getAll() {
 		return connector.getSession().createCriteria(Participant.class).list();
 	}
+	
+	public Participant findByLogin(String login) {
+		return (Participant) connector.getSession().get(Participant.class, login);
+	}
 
+	public void add(Participant participant){
+		org.hibernate.Transaction transaction = connector.getSession().beginTransaction();
+		connector.getSession().save(participant);
+		
+		transaction.commit();
+	}
+
+	public void delete(Participant participant) {
+		org.hibernate.Transaction transaction = connector.getSession().beginTransaction();
+		connector.getSession().delete(participant);
+		
+		transaction.commit();		
+	}
+	
+	public void edit(Participant participant) {
+		org.hibernate.Transaction transaction = connector.getSession().beginTransaction();
+		connector.getSession().update(participant);
+		
+		transaction.commit();		
+		
+	}
 }
