@@ -23,4 +23,14 @@ public class MeetingService {
 		return query.list();
 	}
 
+	public Meeting findById(String Id) {
+		String hql = "FROM Meeting AS M WHERE M.id = " + Id;
+		Query query = connector.getSession().createQuery(hql);
+
+		if(query.list().isEmpty()) {
+			return null;
+		} else {
+			return (Meeting) query.list().get(0);
+		}
+	}
 }
