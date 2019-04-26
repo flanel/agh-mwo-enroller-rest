@@ -41,7 +41,6 @@ public class ParticipantService {
 		org.hibernate.Transaction transaction = connector.getSession().beginTransaction();
 		connector.getSession().update(participant);
 		
-		transaction.commit();		
-		
+		transaction.commit();
 	}
 }

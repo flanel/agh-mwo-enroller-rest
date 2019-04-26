@@ -1,9 +1,10 @@
 package com.company.enroller.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "participant")
@@ -14,6 +15,12 @@ public class Participant {
 
 	@Column
 	private String password;
+
+	@JsonIgnore
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = "meeting_participant", joinColumns = { @JoinColumn(name = "meeting_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "participant_login") })
+	Set<Meeting> meetings = new HashSet<>();
 
 	public String getLogin() {
 		return login;
